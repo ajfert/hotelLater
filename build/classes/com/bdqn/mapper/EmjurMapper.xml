@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.bdqn.dao.EmjurDao">
+
+	<resultMap type="emjur" id="emjurMap">
+		
+	</resultMap>
+	
+  	
+  	<select id="queryById" resultType="Emjur">
+  		select * from emjur where eid=#{id}
+  	</select>
+  	
+  	<select id="getMess" resultType="emjurMess">
+  		SELECT ejid,ename,jname,jobname FROM emjur ej
+  		INNER JOIN employee e
+		ON e.eid=ej.eid
+		INNER JOIN jurisdiction j
+		ON j.jid=ej.jid
+		INNER JOIN job
+		ON e.jobid=job.`jobid`
+		WHERE ej.eid=#{eid}
+		<if test="first!=0">
+			limit #{first},#{size}
+		</if>
+		
+  	</select>
+  	
+  	<select id="delById" parameterType="int">
+  		DELETE FROM emjur WHERE ejid=#{ejid}
+  	</select>
+  	
+  	<select id="add">
+  		INSERT INTO emjur (eid,jid) VALUES(#{eid},(SELECT jid FROM jurisdiction WHERE jname=#{jname}))
+  	</select>
+  	
+</mapper>

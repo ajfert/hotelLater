@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<properties resource="database.properties"/>
+	
+	<!-- <settings>
+		日志
+		<setting name="logImpl" value="STDOUT_LOGGING"/>
+	</settings> -->
+	
+	<typeAliases>
+		<!-- 设置别名 -->
+		<!-- typeAlias type="pojo.Teacher" alias="teacher" -->
+		
+		<!-- 自动以类名字母小写起别名 -->
+		<package name="com.bdqn.pojo"/>
+		<package name="com.bdqn.util"/>
+	</typeAliases>
+	
+	<!-- 数据源default：使用哪个环境，引用id就可以了 -->
+  <environments default="development">
+  <!--开发环境  -->
+    <environment id="development">
+    	<!-- 使用jdbc的事务管理，有几个可选值，通常都是jdbc -->
+      <transactionManager type="JDBC"/>
+      <!-- pooled：数据库连接池 -->
+      <dataSource type="POOLED">
+        <property name="driver" value="${driver}"/>
+        <property name="url" value="${url}"/>
+        <property name="username" value="${root}"/>
+        <property name="password" value="${password}"/>
+      </dataSource>
+    </environment>
+  </environments>
+  <!-- 实体类和数据库表映射的xml文件 -->
+  <mappers>
+    <mapper resource="com/bdqn/mapper/EmployeeMapper.xml"/>
+    <mapper resource="com/bdqn/mapper/OrderMapper.xml"/>
+    <mapper resource="com/bdqn/mapper/EmjurMapper.xml"/>
+  </mappers>
+</configuration>

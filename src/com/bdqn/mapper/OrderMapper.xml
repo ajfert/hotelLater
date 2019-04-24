@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.bdqn.dao.OrderDao">
+
+	<resultMap type="Order" id="orderMap">
+		
+	</resultMap>
+	
+  	<!-- SELECT * FROM `order` WHERE oid LIKE CONCAT('%','1','%')
+  	 AND booktime LIKE CONCAT('%','2019-02','%') -->
+  	<select id="check" resultType="order">
+  		select * from `order`
+  		<trim prefix="where 1=1">
+  			<if test="order.oid!=0 and order.oid!=''">
+  				and oid LIKE CONCAT('%',#{order.oid},'%')
+  			</if>
+  			<if test="order.rid!=0 and order.rid!=''">
+  				AND rid LIKE CONCAT('%',#{order.rid},'%')
+  			</if>
+  			<if test="order.uid!=0 and order.uid!=''">
+  				AND uid LIKE CONCAT('%',#{order.uid},'%')
+  			</if>
+  			<if test="order.eid!=0 and order.eid!=''">
+  				AND eid LIKE CONCAT('%',#{order.eid},'%')
+  			</if>
+  			<if test="order.eprice!=-1 and order.eprice!=''">
+  				AND eprice=#{order.eprice}
+  			</if>
+  			<if test="order.status!=null and order.status!=''">
+  				AND `status` LIKE CONCAT('%',#{order.status},'%')
+  			</if>
+  			<if test="book!=null and book!=''">
+  				AND booktime LIKE CONCAT('%',#{book},'%')
+  			</if>
+  			<if test="start!=null and start!=''">
+  				AND starttime LIKE CONCAT('%',#{start},'%')
+  			</if>
+  			<if test="end!=null and end!=''">
+  				AND endtime LIKE CONCAT('%',#{end},'%')
+  			</if>
+  			<if test="first!=-1 and size!=-1">
+  				limit #{first},#{size}
+  			</if>
+  			
+  		</trim>
+  	</select>
+  	
+  	
+</mapper>
